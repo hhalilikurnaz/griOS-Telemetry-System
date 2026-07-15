@@ -28,3 +28,4 @@ graph LR
     C --> D[(PostgreSQL)]
     C --> E[Agentic AI Analytics]
     E --> F[Dashboard / Alerting]
+🚀 Core Features📡 Precision Telemetry: High-fidelity data acquisition using LoRaWAN nodes for moisture, pH, and ambient temperature.🧠 Agentic AI Integration: Automated resource advice workflows that interpret telemetry data to optimize irrigation schedules.☁️ Cloud-Native Backend: Scalable architecture built with FastAPI, ensuring low-latency data processing and high reliability.📊 Dynamic Visualization: Real-time dashboards providing deep insights into orchard health metrics.🌍 Field-Ready Design: Hardware abstraction layer compatible with various sensor configurations regardless of orchard size.🛠 Technical StackCategoryTechnologyBackendPython, FastAPI, Node.jsIoT ProtocolLoRaWAN, MQTTDatabasePostgreSQL, MongoDBAI/MLLangGraph, LLMs (for Agentic Workflows)DeploymentDocker, Vercel
