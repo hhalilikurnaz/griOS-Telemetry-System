@@ -24,10 +24,8 @@
 - [Teknoloji Yığını](#-teknoloji-yığını)
 - [Proje Yapısı](#-proje-yapısı)
 - [Kurulum](#-kurulum)
-- [Pilot Bölge](#-pilot-bölge)
-- [Maliyet Analizi](#-maliyet-analizi-pilot--1-bahçe-27-ha)
 - [Yol Haritası](#-proje-yol-haritası-3-fazlı-geliştirme)
-- [Gelecek Vizyonu](#-gelecek-vizyonu)
+- [Vizyon](#-vizyon)
 - [Katkıda Bulunma](#-katkıda-bulunma)
 - [Lisans](#-lisans)
 - [İletişim](#-i̇letişim)
@@ -36,13 +34,11 @@
 
 ## 🎯 Proje Hakkında
 
-**Bahçe İkizi**, narenciye (özellikle limon) üreticileri için geliştirilen, çiftçinin bahçesini uçtan uca dijitalleştiren bir **dijital ikiz (digital twin)** platformudur. Proje; uydu görüntüleme, drone tabanlı hassas tarım ve IoT sensör ağlarını **3 kademeli bir yol haritasıyla** tek bir haritada birleştirir:
+**Bahçe İkizi**, narenciye üreticileri için geliştirilen, bahçeyi uçtan uca dijitalleştiren bir **dijital ikiz (digital twin)** platformudur. Proje; uydu görüntüleme, drone tabanlı hassas tarım ve IoT sensör ağlarını **3 kademeli bir yol haritasıyla** tek bir haritada birleştirir:
 
 > **Yer üstü** (uydu + drone) + **Yer altı** (toprak sensörleri) + **Aktif sistem** (akıllı sulama) = **Tek birleşik sağlık skoru**
 
-Her faz bağımsız olarak geliştirilip test edilir ve bir önceki fazın üzerine **veri katmanı olarak** eklenir — böylece platform, düşük maliyetli bir web/mobil uygulamadan başlayıp tam otonom bir akıllı bahçe sistemine kadar kademeli olarak büyür.
-
-**Pilot bölge:** Mersin, Erdemli, Tömük Köyü — 2.66 ha, 847 ağaç, Yediveren çeşidi, 12 yıllık bahçe.
+Her faz bağımsız olarak geliştirilip test edilir ve bir önceki fazın üzerine **veri katmanı olarak** eklenir — böylece platform, düşük maliyetli bir web/mobil uygulamadan başlayıp tam otonom bir akıllı bahçe sistemine kadar kademeli olarak büyür. Mimari, farklı iklim koşullarına, bahçe büyüklüklerine ve narenciye türlerine uyarlanabilecek şekilde tasarlanmıştır.
 
 ---
 
@@ -54,54 +50,103 @@ Geleneksel narenciye üretiminde çiftçiler şu sorunlarla karşılaşıyor:
 |---|---|
 | Hastalık/su stresi geç fark ediliyor, bahçenin tamamı gezilemiyor | Uydu tabanlı NDVI/NDWI ısı haritaları ile kuşbakışı erken teşhis |
 | Hasat miktarı ve geliri tahmin edilemiyor | Drone + YOLO ile ağaç başı meyve sayımı ve gelir projeksiyonu |
-| İlaçlama tüm bahçeye yapılıyor, maliyet ve çevresel etki yüksek | Hastalık haritasına göre **sadece etkilenen bölgeye** akıllı ilaçlama planı (%85 tasarruf potansiyeli) |
-| Sulama tahmine dayalı, su israfı var | IoT nem sensörleri + akıllı vanalarla milimetrik, bölge bazlı sulama |
-| Banka/ihracat için tarlanın "verimlilik kanıtı" yok | Tarla Pasaportu: geçmiş uydu verisine dayalı, PDF çıktılı verimlilik skoru |
-| Çiftçi teknik desteğe anında ulaşamıyor | 7/24 AI Limon Doktoru chatbot + gerektiğinde canlı ziraat mühendisi |
+| İlaçlama tüm bahçeye yapılıyor, maliyet ve çevresel etki yüksek | Hastalık haritasına göre yalnızca etkilenen bölgeye yönelik akıllı ilaçlama planı |
+| Sulama tahmine dayalı, su israfı var | IoT nem sensörleri ve akıllı vanalarla milimetrik, bölge bazlı sulama |
+| Banka veya ihracat süreçlerinde tarlanın verimlilik kanıtı bulunmuyor | Tarla Pasaportu: geçmiş uydu verisine dayalı, PDF çıktılı verimlilik skoru |
+| Çiftçi teknik desteğe anında ulaşamıyor | 7/24 AI Limon Doktoru chatbot ve gerektiğinde canlı ziraat mühendisi desteği |
 
 ---
 
 ## 🏗️ Sistem Mimarisi
 
+### Yüksek Seviye Genel Bakış
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                             BAHÇE İKİZİ PLATFORM                             │
+│                Narenciye Bahçeleri için Dijital İkiz Mimarisi                │
+│                                                                              │
+│                     ┌──────────────────────────────────┐                     │
+│                     │        UNIFIED DASHBOARD         │                     │
+│                     │     React Web  +  Mobile App     │                     │
+│                     └────────────────┬─────────────────┘                     │
+│                                      │                                       │
+│             │                         │                         │            │
+│             ▼                         ▼                         ▼            │
+│  ┌────────────────────┐    ┌────────────────────┐    ┌────────────────────┐  │
+│  │       TARLAM       │    │       PAZAR        │    │       TEKNİK       │  │
+│  │   Bahçe Yönetimi   │    │   Piyasa Zekası    │    │     AI Destek      │  │
+│  └────────────────────┘    └────────────────────┘    └────────────────────┘  │
+│             │                         │                         │            │
+│             └─────────────────────────┴─────────────────────────┘            │
+│                                       ▼                                      │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │                 AI & VERİ KATMANI  —  FastAPI + Python                 │  │
+│  │                                                                        │  │
+│  │            ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐             │  │
+│  │            │ NDVI│ │ NDWI│ │ EVI │ │ LAI │ │ LST │ │ SAR │             │  │
+│  │            └─────┘ └─────┘ └─────┘ └─────┘ └─────┘ └─────┘             │  │
+│  │                                                                        │  │
+│  │                 ┌──────────┐ ┌──────────┐ ┌──────────┐                 │  │
+│  │                 │Phenology │ │  YOLOv8  │ │Custom CNN│                 │  │
+│  │                 └──────────┘ └──────────┘ └──────────┘                 │  │
+│  │                                                                        │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                       ▼                                      │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │                       VERİ KAYNAKLARI & DONANIM                        │  │
+│  │                                                                        │  │
+│  │ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐  │  │
+│  │ │  Sentinel │ │    DJI    │ │    IoT    │ │    HKS    │ │  Weather  │  │  │
+│  │ │   1 / 2   │ │   Drone   │ │ Sensörler │ │    API    │ │    API    │  │  │
+│  │ └───────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘  │  │
+│  │                                                                        │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Detaylı Bileşen Şeması
+
 ```mermaid
 graph TB
-    subgraph Client["📱 İstemci Katmanı"]
-        WEB[React + Mapbox<br/>Web Uygulaması]
-        MOBILE[React Native / Flutter<br/>Mobil Uygulama]
+    subgraph Client["Istemci Katmani"]
+        WEB["React + Mapbox<br/>Web Uygulamasi"]
+        MOBILE["React Native / Flutter<br/>Mobil Uygulama"]
     end
 
-    subgraph API["⚙️ Uygulama Katmanı"]
-        GW[FastAPI / Node.js<br/>API Gateway]
-        AUTH[Supabase<br/>Auth & Storage]
-        CACHE[Redis<br/>Cache]
+    subgraph API["Uygulama Katmani"]
+        GW["FastAPI / Node.js<br/>API Gateway"]
+        AUTH["Supabase<br/>Auth ve Storage"]
+        CACHE["Redis<br/>Cache"]
     end
 
-    subgraph AI["🤖 Zeka Katmanı"]
-        CHATBOT[AI Limon Doktoru<br/>OpenAI API]
-        CNN[Hastalık Tespiti<br/>Custom CNN / ResNet-50]
-        YOLO[Meyve Sayımı<br/>YOLOv8 / Detectron2]
-        ZONE[Verimlilik Zonlama<br/>scikit-learn / PyTorch]
+    subgraph AI["Zeka Katmani"]
+        CHATBOT["AI Limon Doktoru<br/>OpenAI API"]
+        CNN["Hastalik Tespiti<br/>Custom CNN, ResNet-50"]
+        YOLO["Meyve Sayimi<br/>YOLOv8, Detectron2"]
+        ZONE["Verimlilik Zonlama<br/>scikit-learn, PyTorch"]
     end
 
-    subgraph Data["🛰️ Veri Kaynakları"]
-        S2[Sentinel-2<br/>Optik — NDVI/EVI/LAI]
-        S1[Sentinel-1<br/>SAR — Toprak Nem]
-        LANDSAT[Landsat-8 / MODIS<br/>LST]
-        DRONE[Drone<br/>Multispektral + RGB]
-        IOT[LoRaWAN Sensör Ağı<br/>Nem/Sıcaklık/EC]
-        MARKET[HKS + Market Scraping<br/>Fiyat Verisi]
+    subgraph Data["Veri Kaynaklari"]
+        S2["Sentinel-2<br/>Optik: NDVI, EVI, LAI"]
+        S1["Sentinel-1<br/>SAR: Toprak Nem"]
+        LANDSAT["Landsat-8, MODIS<br/>LST"]
+        DRONE["Drone<br/>Multispektral ve RGB"]
+        IOT["LoRaWAN Sensor Agi<br/>Nem, Sicaklik, EC"]
+        MARKET["HKS ve Market Scraping<br/>Fiyat Verisi"]
     end
 
-    subgraph Storage["💾 Veri Katmanı"]
-        PG[(PostgreSQL + PostGIS<br/>Coğrafi Veri)]
-        INFLUX[(InfluxDB<br/>Time-Series Sensör Verisi)]
+    subgraph Storage["Veri Katmani"]
+        PG[("PostgreSQL + PostGIS<br/>Cografi Veri")]
+        INFLUX[("InfluxDB<br/>Time-Series Sensor Verisi")]
     end
 
-    subgraph Field["🌳 Sahada Donanım"]
-        GATEWAY[LoRaWAN Gateway<br/>Raspberry Pi]
-        SENSOR[Toprak/Hava Sensörleri<br/>ESP32]
-        VALVE[Akıllı Vanalar<br/>Solenoid + ESP32]
-        SOLAR[GES — Güneş Enerjisi]
+    subgraph Field["Sahada Donanim"]
+        GATEWAY["LoRaWAN Gateway<br/>Raspberry Pi"]
+        SENSOR["Toprak/Hava Sensorleri<br/>ESP32"]
+        VALVE["Akilli Vanalar<br/>Solenoid + ESP32"]
+        SOLAR["GES: Gunes Enerjisi"]
     end
 
     WEB --> GW
@@ -145,15 +190,15 @@ Proje **3 bağımsız fazda** geliştirilir; her faz kendi içinde tamamlanır, 
 
 ```mermaid
 gantt
-    title Bahçe İkizi — Geliştirme Fazları
+    title Bahce Ikizi - Gelistirme Fazlari
     dateFormat  X
     axisFormat  %s
     section Faz 1
     Platform (Web + Mobil)         :active, f1, 0, 3
     section Faz 2
-    Drone & Verim Zekası           :f2, after f1, 3
+    Drone ve Verim Zekasi          :f2, after f1, 3
     section Faz 3
-    IoT & Akıllı Sulama            :f3, after f2, 3
+    IoT ve Akilli Sulama           :f3, after f2, 3
 ```
 
 ### Faz 1 — Platform (Web + Mobil)
@@ -214,16 +259,14 @@ gantt
 
 | Modül | Teknoloji | Çıktı |
 |---|---|---|
-| **Meyve Sayımı** | YOLOv8 / Faster R-CNN, 50-80m irtifa, orthomosaic | Ağaç başı meyve sayısı, toplam rekolte tahmini (%85-92 doğruluk) |
+| **Meyve Sayımı** | YOLOv8 / Faster R-CNN, 50-80m irtifa, orthomosaic | Ağaç başı meyve sayısı, toplam rekolte tahmini (yüksek doğruluk) |
 | **Boyut & Olgunluk Analizi** | RGB→HSV piksel/renk analizi | İhracatlık / iç piyasa / sanayi kalite dağılımı |
 | **Gelir Projeksiyonu** | HKS + market fiyat entegrasyonu | İyimser / gerçekçi / kötümser senaryolu gelir dashboard'u |
-| **Ağaç Başı Numaralandırma** | Computer vision + GPS RTK | Benzersiz ID (örn. `TOM-001`), cm hassasiyetinde konum |
+| **Ağaç Başı Numaralandırma** | Computer vision + GPS RTK | Benzersiz ID, cm hassasiyetinde konum |
 | **DSM/DTM Analizi** | Fotogrametri | Eğim, su akış yönü, erozyon riski, ağaç hacmi |
 | **Hastalık Tespiti** | Custom CNN (ResNet-50 backbone) | Ağaç başı hastalık haritası + yayılım yönü/hotspot analizi |
-| **Otomatik İlaçlama Planı** | Hastalık haritası → dozaj motoru | Sadece hasta bölgeye ilaçlama → **%85 ilaç, %70 zaman, %60 su tasarrufu** |
+| **Otomatik İlaçlama Planı** | Hastalık haritası → dozaj motoru | Sadece hasta bölgeye ilaçlama ile ilaç, zaman ve su tasarrufu |
 | **Karbon (MRV)** | DSM hacim modeli + girdi bazlı emisyon hesabı | Verra VCS / Gold Standard uyumlu PDF rapor, karbon kredisi potansiyeli |
-
-> 💡 **Maliyet Optimizasyonu Örneği:** Geleneksel ilaçlama 2.66 ha × 500 L/ha = 1.330 L iken, akıllı ilaçlama yalnızca hasta 0.4 ha'yı hedefleyerek 200 L'ye iner.
 
 ### Faz 3 — IoT, Sensörler ve Akıllı Sulama
 
@@ -231,13 +274,13 @@ gantt
 
 ```mermaid
 flowchart LR
-    A[Toprak/Hava Sensörleri<br/>15-30-60cm derinlik] -->|LoRaWAN| B[Gateway<br/>Raspberry Pi]
-    B -->|MQTT| C[InfluxDB<br/>Time-Series]
-    C --> D{Nem eşiği<br/>kontrolü}
-    D -->|"Nem < %20"| E[Akıllı Vana<br/>Solenoid + ESP32]
-    D -->|Yeterli| F[Bekleme]
-    E --> G[Sondaj Pompa<br/>Kontrol Ünitesi]
-    H[GES Güneş Paneli] -->|Enerji| B
+    A["Toprak/Hava Sensorleri<br/>15-30-60cm derinlik"] -->|LoRaWAN| B["Gateway<br/>Raspberry Pi"]
+    B -->|MQTT| C["InfluxDB<br/>Time-Series"]
+    C --> D{"Nem esigi kontrolu"}
+    D -->|Esik altinda| E["Akilli Vana<br/>Solenoid + ESP32"]
+    D -->|Yeterli| F["Bekleme"]
+    E --> G["Sondaj Pompa<br/>Kontrol Unitesi"]
+    H["GES Gunes Paneli"] -->|Enerji| B
     H -->|Enerji| E
     H -->|Enerji| G
 ```
@@ -256,46 +299,46 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    subgraph Kaynak["1️⃣ Veri Kaynağı"]
-        SH[Sentinel Hub API /<br/>Google Earth Engine]
+    subgraph Kaynak["1. Veri Kaynagi"]
+        SH["Sentinel Hub API /<br/>Google Earth Engine"]
     end
 
     subgraph Filtre["Bulut Filtreleme"]
-        CF[Fmask / S2Cloudless]
+        CF["Fmask / S2Cloudless"]
     end
 
-    subgraph Islem["2️⃣ İşleme Motoru — Python"]
-        GDAL[GDAL + Rasterio + NumPy]
-        NDVI_CALC["İndeks Hesabı<br/>NDVI = (NIR-Red)/(NIR+Red)"]
-        ZONE_CALC[Zonlama: 10 yıllık<br/>istatistiksel ortalama]
+    subgraph Islem["2. Isleme Motoru - Python"]
+        GDAL["GDAL + Rasterio + NumPy"]
+        NDVI_CALC["Indeks Hesabi<br/>NDVI = NIR-Red / NIR+Red"]
+        ZONE_CALC["Zonlama<br/>10 yillik istatistiksel ortalama"]
     end
 
-    subgraph Dogrulama["3️⃣ Doğrulama — Data Fusion"]
-        PG[(PostgreSQL + PostGIS)]
-        INFLUX[(InfluxDB — Sensör)]
-        FUSION{Uydu vs Sensör<br/>çelişkisi?}
+    subgraph Dogrulama["3. Dogrulama - Data Fusion"]
+        PG[("PostgreSQL + PostGIS")]
+        INFLUX[("InfluxDB - Sensor")]
+        FUSION{"Uydu vs sensor<br/>celiskisi?"}
     end
 
-    subgraph AILayer["4️⃣ Akıllı Analiz"]
-        ML[scikit-learn / TensorFlow<br/>Verimlilik Zonlama]
+    subgraph AILayer["4. Akilli Analiz"]
+        ML["scikit-learn / TensorFlow<br/>Verimlilik Zonlama"]
     end
 
-    subgraph Hibrit["5️⃣ Hibrit Doğrulama"]
-        S1R[Sentinel-1 SAR<br/>bulutlu günlerde devreye girer]
-        IOT_BACKUP[IoT sensör<br/>yerel yedek veri]
-        INTERP[AI İnterpolasyon]
+    subgraph Hibrit["5. Hibrit Dogrulama"]
+        S1R["Sentinel-1 SAR<br/>bulutlu gunlerde devreye girer"]
+        IOT_BACKUP["IoT sensor<br/>yerel yedek veri"]
+        INTERP["AI Interpolasyon"]
     end
 
-    subgraph Arayuz["6️⃣ Arayüz"]
-        MAP[Mapbox / Leaflet<br/>Katman Seçici]
+    subgraph Arayuz["6. Arayuz"]
+        MAP["Mapbox / Leaflet<br/>Katman Secici"]
     end
 
     SH --> CF --> GDAL --> NDVI_CALC --> ZONE_CALC --> PG
     INFLUX --> FUSION
     PG --> FUSION
-    FUSION -->|"Sensör 30cm altını görür,<br/>sensör verisi öncelikli"| PG
+    FUSION -->|Sensor verisi oncelikli| PG
     PG --> ML --> MAP
-    CF -.->|Bulutlu gün| S1R --> INTERP
+    CF -.->|Bulutlu gun| S1R --> INTERP
     IOT_BACKUP --> INTERP
     INTERP --> PG
 ```
@@ -323,14 +366,14 @@ flowchart TD
 
 ```mermaid
 flowchart TB
-    subgraph F1["🛰️ Faz 1 Sonrası — Temel Uydu Haritası"]
-        L1[NDVI • NDWI • EVI • LAI • LST • SAR<br/>Phenology • Parsel Poligonu]
+    subgraph F1["Faz 1 Sonrasi - Temel Uydu Haritasi"]
+        L1["NDVI, NDWI, EVI, LAI, LST, SAR<br/>Phenology, Parsel Poligonu"]
     end
-    subgraph F2["🚁 Faz 2 Sonrası — Drone Detay Haritası"]
-        L2[Faz 1 +<br/>Ağaç Başı Numara/Sağlık • Hastalık Haritası<br/>DSM/Eğim • Karbon • Verim Tahmini<br/>Meyve Sayımı • Olgunluk • İlaçlama Planı]
+    subgraph F2["Faz 2 Sonrasi - Drone Detay Haritasi"]
+        L2["Faz 1 verileri<br/>Agac Basi Numara ve Saglik<br/>Hastalik Haritasi, DSM/Egim<br/>Karbon, Verim Tahmini, Meyve Sayimi"]
     end
-    subgraph F3["📡 Faz 3 Sonrası — Birleşik Dijital İkiz"]
-        L3[Faz 1+2 +<br/>Yer Altı: Nem/Sıcaklık/pH/EC (3 derinlik)<br/>Aktif Sistem: Vana Durumu • GES<br/>= TEK BİRLEŞİK SAĞLIK SKORU]
+    subgraph F3["Faz 3 Sonrasi - Birlesik Dijital Ikiz"]
+        L3["Faz 1 ve 2 verileri<br/>Yer Alti: Nem, Sicaklik, pH, EC<br/>Aktif Sistem: Vana Durumu, GES<br/>Tek Birlesik Saglik Skoru"]
     end
     F1 -->|Drone verisi eklenir| F2
     F2 -->|IoT verisi eklenir| F3
@@ -431,43 +474,6 @@ npm run dev
 
 ---
 
-## 📍 Pilot Bölge
-
-| Özellik | Değer |
-|---|---|
-| Konum | Mersin, Erdemli, Tömük Köyü |
-| Parsel Büyüklüğü | 2.66 ha |
-| Ağaç Sayısı | 847 |
-| Çeşit | Yediveren |
-| Ekim Aralığı | 6×6 m |
-| Bahçe Yaşı | 12 yıl |
-| Toprak | Kumlu-tınlı, pH 7.2–8.0 |
-| Su Kaynağı | Tömük deresi + sondaj |
-| Hasat Dönemi | Ekim–Mart |
-| Ana Riskler | Yaz kuraklığı, kış donu |
-| Akdeniz'e Mesafe | 2.3 km (kuzeybatı) |
-
----
-
-## 💰 Maliyet Analizi (Pilot — 1 Bahçe, ~2.7 ha)
-
-| Faz | Kalem | Adet | Tahmini Maliyet (USD) |
-|---|---|---|---|
-| 1 | Yazılım geliştirme (Web + Mobil) | – | 8.000 – 12.000 |
-| 2 | Drone (DJI Mavic 3 Multispectral) | 1 | 5.000 – 7.000 |
-| 2 | Drone yazılım/AI modeli | – | 3.000 – 5.000 |
-| 3 | Toprak sensör istasyonu (3 derinlik) | 4 | 1.600 |
-| 3 | Hava istasyonu | 1 | 300 |
-| 3 | Su debi sensörü | 2 | 200 |
-| 3 | Akıllı vana (solenoid) | 4 | 400 |
-| 3 | LoRaWAN gateway | 1 | 200 |
-| 3 | Sondaj kontrol ünitesi | 1 | 500 |
-| 3 | GES sistemi (panel + batarya) | 1 | 1.500 |
-| 3 | IoT kurulum ve entegrasyon | – | 2.000 – 3.000 |
-| **Toplam** | | | **~22.000 – 30.000** |
-
----
-
 ## 🛣️ Proje Yol Haritası (3 Fazlı Geliştirme)
 
 - [x] **Faz 1 — Platform:** Tarlam modülü, 8 katmanlı uydu analizi, Tarla Pasaportu, AI Limon Doktoru, pazar zekası, E-Ziraat entegrasyonu
@@ -476,14 +482,15 @@ npm run dev
 
 ---
 
-## 🔭 Gelecek Vizyonu
+## 🔭 Vizyon
 
-- Mersin bölgesinde **1000+ çiftçiye** ulaşmak
-- Türkiye genelinde narenciye sektörüne yayılmak
-- Global limon pazarında **veri sağlayıcı** konumuna gelmek
-- Akıllı tarımda **standart belirleyici** olmak
-- Karbon kredisi pazarında Türkiye'nin öncü platformu olmak
-- Devlet destekli akıllı tarım projelerine entegre olmak
+Bahçe İkizi, tek bir bahçeden başlayıp ölçeklenebilir bir global akıllı tarım altyapısı olmayı hedefler:
+
+- Dünya genelindeki narenciye üreticilerine ulaşan, yerelden bağımsız çalışabilen bir **SaaS platformu** olmak
+- Uydu, drone ve IoT verisini birleştiren **açık, veriye dayalı hassas tarım standardını** belirlemek
+- Karbon kredisi ve sürdürülebilirlik raporlamasında (MRV) üreticiler için **uluslararası ölçekte erişilebilir** bir çözüm sunmak
+- Kooperatifler, ihracatçılar ve finans kuruluşları için **güvenilir tarımsal veri altyapısı** haline gelmek
+- Su, ilaç ve enerji kullanımını optimize ederek **sürdürülebilir narenciye üretimine** küresel ölçekte katkı sağlamak
 
 ---
 
@@ -512,5 +519,5 @@ Sorularınız veya iş birliği teklifleriniz için proje sahibiyle iletişime g
 ---
 
 <p align="center">
-  <sub>Belge Tarihi: 2026-07-11 · Proje: Bahçe İkizi (Garden Digital Twin) · Hedef Bölge: Mersin, Erdemli, Tömük · Versiyon: 10.0</sub>
+  <sub>Proje: Bahçe İkizi (Garden Digital Twin) · Akıllı Narenciye Tarımı Platformu</sub>
 </p>
