@@ -1,70 +1,74 @@
-# 🍋 Bahçe İkizi (Garden Digital Twin)
+# 🍋 Garden Digital Twin
 
-**Narenciye bahçeleri için uydu, drone ve IoT verisini tek bir dijital ikizde birleştiren akıllı tarım platformu**
+**An intelligent agriculture platform that fuses satellite imagery, drone mapping, and IoT sensor networks into a single digital twin for citrus orchards**
 
-[![Status](https://img.shields.io/badge/status-geli%C5%9Ftirme%20a%C5%9Famas%C4%B1nda-yellow)](#)
-[![Faz](https://img.shields.io/badge/faz-1%20%2F%203-blue)](#-proje-yol-haritas%C4%B1-3-fazl%C4%B1-geli%C5%9Ftirme)
-[![License](https://img.shields.io/badge/license-Proprietary-lightgrey)](#-lisans)
-[![Stack](https://img.shields.io/badge/stack-FastAPI%20%7C%20React%20%7C%20PostGIS-informational)](#-teknoloji-yığını)
-
----
-
-## 📖 İçindekiler
-
-- [Proje Hakkında](#-proje-hakkında)
-- [Neden Bu Proje?](#-neden-bu-proje)
-- [Sistem Mimarisi](#-sistem-mimarisi)
-- [Faz Bazlı Özellikler](#-faz-bazlı-özellikler)
-  - [Faz 1 — Platform (Web + Mobil)](#faz-1--platform-web--mobil)
-  - [Faz 2 — Drone Tabanlı Haritalama](#faz-2--drone-tabanlı-gelişmiş-haritalama-ve-verim-zekası)
-  - [Faz 3 — IoT ve Akıllı Sulama](#faz-3--iot-sensörler-ve-akıllı-sulama)
-- [Veri İşleme Pipeline'ı](#-veri-i̇şleme-pipelineı)
-- [Dijital Sağlık Skoru — 8 Katmanlı Uydu Analizi](#-dijital-sağlık-skoru--8-katmanlı-uydu-analizi)
-- [Harita Katmanları Evrimi](#-harita-katmanları-evrimi-3-faz-boyunca)
-- [Teknoloji Yığını](#-teknoloji-yığını)
-- [Proje Yapısı](#-proje-yapısı)
-- [Kurulum](#-kurulum)
-- [Yol Haritası](#-proje-yol-haritası-3-fazlı-geliştirme)
-- [Vizyon](#-vizyon)
-- [Katkıda Bulunma](#-katkıda-bulunma)
-- [Lisans](#-lisans)
-- [İletişim](#-i̇letişim)
+[![Status](https://img.shields.io/badge/status-in%20development-yellow)](#-project-roadmap-3-phase-development)
+[![Phase](https://img.shields.io/badge/phase-1%20%2F%203-blue)](#-project-roadmap-3-phase-development)
+[![License](https://img.shields.io/badge/license-Proprietary-lightgrey)](#-license)
+[![Stack](https://img.shields.io/badge/stack-FastAPI%20%7C%20React%20%7C%20PostGIS-informational)](#-tech-stack)
+[![Diagrams](https://img.shields.io/badge/diagrams-Mermaid-ff3670)](#-system-architecture)
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen)](#-contributing)
 
 ---
 
-## 🎯 Proje Hakkında
+## 📖 Table of Contents
 
-**Bahçe İkizi**, narenciye üreticileri için geliştirilen, bahçeyi uçtan uca dijitalleştiren bir **dijital ikiz (digital twin)** platformudur. Proje; uydu görüntüleme, drone tabanlı hassas tarım ve IoT sensör ağlarını **3 kademeli bir yol haritasıyla** tek bir haritada birleştirir:
-
-> **Yer üstü** (uydu + drone) + **Yer altı** (toprak sensörleri) + **Aktif sistem** (akıllı sulama) = **Tek birleşik sağlık skoru**
-
-Her faz bağımsız olarak geliştirilip test edilir ve bir önceki fazın üzerine **veri katmanı olarak** eklenir — böylece platform, düşük maliyetli bir web/mobil uygulamadan başlayıp tam otonom bir akıllı bahçe sistemine kadar kademeli olarak büyür. Mimari, farklı iklim koşullarına, bahçe büyüklüklerine ve narenciye türlerine uyarlanabilecek şekilde tasarlanmıştır.
+- [Overview](#-overview)
+- [Why This Project?](#-why-this-project)
+- [System Architecture](#-system-architecture)
+- [Data Model](#-data-model)
+- [Phased Feature Roadmap](#-phased-feature-roadmap)
+  - [Phase 1 — Platform (Web + Mobile)](#phase-1--platform-web--mobile)
+  - [Phase 2 — Drone-Based Mapping & Yield Intelligence](#phase-2--drone-based-mapping--yield-intelligence)
+  - [Phase 3 — IoT, Sensors & Smart Irrigation](#phase-3--iot-sensors--smart-irrigation)
+- [AI Disease Diagnosis Flow](#-ai-disease-diagnosis-flow)
+- [Data Processing Pipeline](#-data-processing-pipeline)
+- [Satellite Health Score — 8-Layer Analysis](#-satellite-health-score--8-layer-analysis)
+- [Map Layer Evolution](#-map-layer-evolution-across-3-phases)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Project Roadmap](#-project-roadmap-3-phase-development)
+- [Vision](#-vision)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
 
 ---
 
-## 🌱 Neden Bu Proje?
+## 🎯 Overview
 
-Geleneksel narenciye üretiminde çiftçiler şu sorunlarla karşılaşıyor:
+**Garden Digital Twin** is an end-to-end digital twin platform for citrus orchards. It brings together satellite remote sensing, drone-based precision agriculture, and IoT sensor networks through a **three-phase roadmap**, converging on a single unified orchard map:
 
-| Problem | Bahçe İkizi Çözümü |
+> **Above ground** (satellite + drone) + **Below ground** (soil sensors) + **Active systems** (smart irrigation) = **One unified health score**
+
+Each phase is developed and validated independently, then layered on top of the previous phase's data — allowing the platform to grow from a lightweight web/mobile MVP into a fully autonomous, solar-powered smart orchard system. The architecture is designed to generalize across climates, orchard sizes, and citrus varieties rather than being tied to a single deployment.
+
+---
+
+## 🌱 Why This Project?
+
+Traditional citrus farming faces recurring, costly problems that satellite, drone, and IoT data can solve when properly fused:
+
+| Problem | Garden Digital Twin Solution |
 |---|---|
-| Hastalık/su stresi geç fark ediliyor, bahçenin tamamı gezilemiyor | Uydu tabanlı NDVI/NDWI ısı haritaları ile kuşbakışı erken teşhis |
-| Hasat miktarı ve geliri tahmin edilemiyor | Drone + YOLO ile ağaç başı meyve sayımı ve gelir projeksiyonu |
-| İlaçlama tüm bahçeye yapılıyor, maliyet ve çevresel etki yüksek | Hastalık haritasına göre yalnızca etkilenen bölgeye yönelik akıllı ilaçlama planı |
-| Sulama tahmine dayalı, su israfı var | IoT nem sensörleri ve akıllı vanalarla milimetrik, bölge bazlı sulama |
-| Banka veya ihracat süreçlerinde tarlanın verimlilik kanıtı bulunmuyor | Tarla Pasaportu: geçmiş uydu verisine dayalı, PDF çıktılı verimlilik skoru |
-| Çiftçi teknik desteğe anında ulaşamıyor | 7/24 AI Limon Doktoru chatbot ve gerektiğinde canlı ziraat mühendisi desteği |
+| Disease and water stress are detected too late; the whole orchard can't be walked daily | Satellite-based NDVI/NDWI heatmaps for early, bird's-eye detection |
+| Harvest volume and revenue are hard to forecast | Drone + YOLO object detection for per-tree fruit counting and revenue projection |
+| Spraying is applied to the entire orchard, driving up cost and environmental impact | Disease-map-driven spraying plans that target only affected zones |
+| Irrigation is guesswork, leading to water waste | IoT moisture sensors and smart valves enable millimeter-precise, zone-based irrigation |
+| Growers lack documented proof of yield/quality for banks or export buyers | Farm Passport: a PDF report backed by historical satellite productivity scoring |
+| Farmers can't get expert help instantly | 24/7 AI Lemon Doctor chatbot, with escalation to a live agronomist when needed |
 
 ---
 
-## 🏗️ Sistem Mimarisi
+## 🏗️ System Architecture
 
-### Yüksek Seviye Genel Bakış
+### High-Level Overview
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│                             BAHÇE İKİZİ PLATFORM                             │
-│                Narenciye Bahçeleri için Dijital İkiz Mimarisi                │
+│                         GARDEN DIGITAL TWIN PLATFORM                         │
+│           Satellite + Drone + IoT Digital Twin for Citrus Orchards           │
 │                                                                              │
 │                     ┌──────────────────────────────────┐                     │
 │                     │        UNIFIED DASHBOARD         │                     │
@@ -74,14 +78,14 @@ Geleneksel narenciye üretiminde çiftçiler şu sorunlarla karşılaşıyor:
 │             │                         │                         │            │
 │             ▼                         ▼                         ▼            │
 │  ┌────────────────────┐    ┌────────────────────┐    ┌────────────────────┐  │
-│  │       TARLAM       │    │       PAZAR        │    │       TEKNİK       │  │
-│  │   Bahçe Yönetimi   │    │   Piyasa Zekası    │    │     AI Destek      │  │
+│  │      MY FARM       │    │    MARKETPLACE     │    │     AI SUPPORT     │  │
+│  │  Farm Management   │    │Market Intelligence │    │ Technical Support  │  │
 │  └────────────────────┘    └────────────────────┘    └────────────────────┘  │
 │             │                         │                         │            │
 │             └─────────────────────────┴─────────────────────────┘            │
 │                                       ▼                                      │
 │  ┌────────────────────────────────────────────────────────────────────────┐  │
-│  │                 AI & VERİ KATMANI  —  FastAPI + Python                 │  │
+│  │                  AI & DATA LAYER  —  FastAPI + Python                  │  │
 │  │                                                                        │  │
 │  │            ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐             │  │
 │  │            │ NDVI│ │ NDWI│ │ EVI │ │ LAI │ │ LST │ │ SAR │             │  │
@@ -94,11 +98,11 @@ Geleneksel narenciye üretiminde çiftçiler şu sorunlarla karşılaşıyor:
 │  └────────────────────────────────────────────────────────────────────────┘  │
 │                                       ▼                                      │
 │  ┌────────────────────────────────────────────────────────────────────────┐  │
-│  │                       VERİ KAYNAKLARI & DONANIM                        │  │
+│  │                     DATA SOURCES & FIELD HARDWARE                      │  │
 │  │                                                                        │  │
 │  │ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐  │  │
 │  │ │  Sentinel │ │    DJI    │ │    IoT    │ │    HKS    │ │  Weather  │  │  │
-│  │ │   1 / 2   │ │   Drone   │ │ Sensörler │ │    API    │ │    API    │  │  │
+│  │ │   1 / 2   │ │   Drone   │ │  Sensors  │ │    API    │ │    API    │  │  │
 │  │ └───────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘  │  │
 │  │                                                                        │  │
 │  └────────────────────────────────────────────────────────────────────────┘  │
@@ -106,47 +110,47 @@ Geleneksel narenciye üretiminde çiftçiler şu sorunlarla karşılaşıyor:
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Detaylı Bileşen Şeması
+### Detailed Component Diagram
 
 ```mermaid
 graph TB
-    subgraph Client["Istemci Katmani"]
-        WEB["React + Mapbox<br/>Web Uygulamasi"]
-        MOBILE["React Native / Flutter<br/>Mobil Uygulama"]
+    subgraph Client["Client Layer"]
+        WEB["React + Mapbox<br/>Web Application"]
+        MOBILE["React Native / Flutter<br/>Mobile Application"]
     end
 
-    subgraph API["Uygulama Katmani"]
+    subgraph API["Application Layer"]
         GW["FastAPI / Node.js<br/>API Gateway"]
-        AUTH["Supabase<br/>Auth ve Storage"]
+        AUTH["Supabase<br/>Auth and Storage"]
         CACHE["Redis<br/>Cache"]
     end
 
-    subgraph AI["Zeka Katmani"]
-        CHATBOT["AI Limon Doktoru<br/>OpenAI API"]
-        CNN["Hastalik Tespiti<br/>Custom CNN, ResNet-50"]
-        YOLO["Meyve Sayimi<br/>YOLOv8, Detectron2"]
-        ZONE["Verimlilik Zonlama<br/>scikit-learn, PyTorch"]
+    subgraph AI["Intelligence Layer"]
+        CHATBOT["AI Lemon Doctor<br/>OpenAI API"]
+        CNN["Disease Detection<br/>Custom CNN, ResNet-50"]
+        YOLO["Fruit Counting<br/>YOLOv8, Detectron2"]
+        ZONE["Yield Zoning<br/>scikit-learn, PyTorch"]
     end
 
-    subgraph Data["Veri Kaynaklari"]
-        S2["Sentinel-2<br/>Optik: NDVI, EVI, LAI"]
-        S1["Sentinel-1<br/>SAR: Toprak Nem"]
+    subgraph Data["Data Sources"]
+        S2["Sentinel-2<br/>Optical: NDVI, EVI, LAI"]
+        S1["Sentinel-1<br/>SAR: Soil Moisture"]
         LANDSAT["Landsat-8, MODIS<br/>LST"]
-        DRONE["Drone<br/>Multispektral ve RGB"]
-        IOT["LoRaWAN Sensor Agi<br/>Nem, Sicaklik, EC"]
-        MARKET["HKS ve Market Scraping<br/>Fiyat Verisi"]
+        DRONE["Drone<br/>Multispectral and RGB"]
+        IOT["LoRaWAN Sensor Network<br/>Moisture, Temperature, EC"]
+        MARKET["Market Price Feeds<br/>Wholesale and Retail"]
     end
 
-    subgraph Storage["Veri Katmani"]
-        PG[("PostgreSQL + PostGIS<br/>Cografi Veri")]
-        INFLUX[("InfluxDB<br/>Time-Series Sensor Verisi")]
+    subgraph Storage["Data Layer"]
+        PG[("PostgreSQL + PostGIS<br/>Geospatial Data")]
+        INFLUX[("InfluxDB<br/>Time-Series Sensor Data")]
     end
 
-    subgraph Field["Sahada Donanim"]
+    subgraph Field["Field Hardware"]
         GATEWAY["LoRaWAN Gateway<br/>Raspberry Pi"]
-        SENSOR["Toprak/Hava Sensorleri<br/>ESP32"]
-        VALVE["Akilli Vanalar<br/>Solenoid + ESP32"]
-        SOLAR["GES: Gunes Enerjisi"]
+        SENSOR["Soil/Weather Sensors<br/>ESP32"]
+        VALVE["Smart Valves<br/>Solenoid + ESP32"]
+        SOLAR["Solar Power System"]
     end
 
     WEB --> GW
@@ -184,199 +188,312 @@ graph TB
 
 ---
 
-## 📦 Faz Bazlı Özellikler
+## 🗃️ Data Model
 
-Proje **3 bağımsız fazda** geliştirilir; her faz kendi içinde tamamlanır, test edilir ve bir önceki fazla birleştirilir.
-
-```mermaid
-gantt
-    title Bahce Ikizi - Gelistirme Fazlari
-    dateFormat  X
-    axisFormat  %s
-    section Faz 1
-    Platform (Web + Mobil)         :active, f1, 0, 3
-    section Faz 2
-    Drone ve Verim Zekasi          :f2, after f1, 3
-    section Faz 3
-    IoT ve Akilli Sulama           :f3, after f2, 3
-```
-
-### Faz 1 — Platform (Web + Mobil)
-
-**Hedef:** Uydu verisiyle çalışan, hemen değer üreten bir MVP.
-
-<details>
-<summary><b>🗺️ Tarlam — Dijital Operasyon Merkezi</b></summary>
-
-- Harita üzerinde parsel sınırı (poligon) çizme, ağaç sayısı/tür/yaş girişi
-- **8 katmanlı uydu sağlık analizi:** NDVI, NDWI, EVI, LAI, LST, SAR toprak nemi, Phenology (mevsimsel takip), 10 yıllık zaman serisi trend analizi
-- **Tarla Pasaportu:** Geçmiş verimlilik skoru (100 üzerinden), banka/kira için PDF kanıt raporu
-- İşletme & finans takibi (işçilik, gider, kâr/zarar)
-- **Üretim Kayıt Defteri:** Barkod okuma ile ilaç/dozaj kaydı, AB ihracat uyumluluk raporu
-- Offline saha defteri (fotoğraf/ses notu, internet gelince senkron)
-</details>
-
-<details>
-<summary><b>📈 Pazar ve Haber Zekası</b></summary>
-
-- **Limon Borsası:** HKS (Hal Kayıt Sistemi) + market fiyat scraping (Migros, Bim, A101...) karşılaştırması
-- Küresel sektör bülteni (İspanya, Arjantin, G. Afrika rekolte/fiyat verisi)
-- Yerel sektör bülteni (fuarlar, devlet destekleri)
-- AI Haber Asistanı: haberin çiftçiye etkisini 2 cümlede özetler
-</details>
-
-<details>
-<summary><b>🩺 Teknik Destek ve Uzmanlık</b></summary>
-
-- **AI Limon Doktoru:** Sola (OneSoil) tarzı chatbot arayüzü, fotoğrafla hastalık teşhisi
-  - Tespit edilen hastalıklar: Trips, Limon Uyuzu, Kırmızı Örümcek, Kök Çürüklüğü, Apaç (Kanser)
-- Uzmanına Sor: AI'nın çözemediği durumlarda ziraat mühendisi randevusu
-- Hastalık veritabanı (Faz 2 AI model eğitimi için etiketlenmiş veri)
-</details>
-
-<details>
-<summary><b>⚖️ Karar Destek ve Verimlilik</b></summary>
-
-- Bahçeye özel budama/sulama/hasat takvimi + push bildirimleri
-- Hassas dozaj hesaplayıcı (ağaç sayısı × tür × ilaç markası)
-- PHI (İlaç Etkinlik Süresi) geri sayımı + AB MRL uyarısı
-- Karşılaştırmalı meteoroloji, don/afet risk uyarısı, 7 günlük tahmin
-</details>
-
-<details>
-<summary><b>👥 Topluluk, Rehber ve Devlet Entegrasyonu</b></summary>
-
-- Agri-Akademi: 1 dakikalık sertifikalı eğitim videoları
-- Servis/ekipman rehberi (traktör ustası, gübre bayisi, lojistik)
-- Çiftçi Meydanı: moderasyonlu forum
-- **E-Ziraat:** T.C. Tarım Bakanlığı / ÇKS / TARSİM entegrasyonu, destek başvuru takibi
-- Hal entegrasyonu + soğuk hava deposu takibi
-</details>
-
-### Faz 2 — Drone Tabanlı Gelişmiş Haritalama ve Verim Zekası
-
-**Hedef:** Tarlayı "hasat planı çıkaran bir makineye" dönüştürmek.
-
-| Modül | Teknoloji | Çıktı |
-|---|---|---|
-| **Meyve Sayımı** | YOLOv8 / Faster R-CNN, 50-80m irtifa, orthomosaic | Ağaç başı meyve sayısı, toplam rekolte tahmini (yüksek doğruluk) |
-| **Boyut & Olgunluk Analizi** | RGB→HSV piksel/renk analizi | İhracatlık / iç piyasa / sanayi kalite dağılımı |
-| **Gelir Projeksiyonu** | HKS + market fiyat entegrasyonu | İyimser / gerçekçi / kötümser senaryolu gelir dashboard'u |
-| **Ağaç Başı Numaralandırma** | Computer vision + GPS RTK | Benzersiz ID, cm hassasiyetinde konum |
-| **DSM/DTM Analizi** | Fotogrametri | Eğim, su akış yönü, erozyon riski, ağaç hacmi |
-| **Hastalık Tespiti** | Custom CNN (ResNet-50 backbone) | Ağaç başı hastalık haritası + yayılım yönü/hotspot analizi |
-| **Otomatik İlaçlama Planı** | Hastalık haritası → dozaj motoru | Sadece hasta bölgeye ilaçlama ile ilaç, zaman ve su tasarrufu |
-| **Karbon (MRV)** | DSM hacim modeli + girdi bazlı emisyon hesabı | Verra VCS / Gold Standard uyumlu PDF rapor, karbon kredisi potansiyeli |
-
-### Faz 3 — IoT, Sensörler ve Akıllı Sulama
-
-**Hedef:** Tamamen otonom, güneş enerjili akıllı bahçe.
+A logical entity-relationship view of the core domain objects the platform manages across all three phases.
 
 ```mermaid
-flowchart LR
-    A["Toprak/Hava Sensorleri<br/>15-30-60cm derinlik"] -->|LoRaWAN| B["Gateway<br/>Raspberry Pi"]
-    B -->|MQTT| C["InfluxDB<br/>Time-Series"]
-    C --> D{"Nem esigi kontrolu"}
-    D -->|Esik altinda| E["Akilli Vana<br/>Solenoid + ESP32"]
-    D -->|Yeterli| F["Bekleme"]
-    E --> G["Sondaj Pompa<br/>Kontrol Unitesi"]
-    H["GES Gunes Paneli"] -->|Enerji| B
-    H -->|Enerji| E
-    H -->|Enerji| G
-```
+erDiagram
+    PARCEL ||--o{ TREE : contains
+    PARCEL ||--o{ HEALTH_INDEX : "has satellite readings"
+    PARCEL ||--o{ SENSOR : "hosts"
+    PARCEL ||--o| FARM_PASSPORT : generates
+    TREE ||--o{ DISEASE_RECORD : "may have"
+    TREE ||--o{ FRUIT_COUNT : "counted in"
+    SENSOR ||--o{ SENSOR_READING : produces
+    SENSOR ||--o| VALVE : controls
+    VALVE ||--o{ IRRIGATION_EVENT : triggers
+    USER ||--o{ PARCEL : manages
+    USER ||--o{ EXPENSE : logs
+    USER ||--o{ SPRAY_RECORD : logs
+    MARKET_PRICE ||--o{ REVENUE_PROJECTION : feeds
 
-- **Sensör Ağı:** 3 derinlikte (15/30/60cm) nem, sıcaklık, EC; hava istasyonu
-- **LoRaWAN İletişim:** İnternetsiz bahçelerde düşük enerjili, uzun menzilli veri akışı
-- **Akıllı Vana:** Bölge bazlı otomatik sulama, manuel override
-- **Sondaj/Pompa Kontrolü:** Kuru çalışma, aşırı basınç, voltaj koruması
-- **GES (Güneş Enerjisi):** Şebeke bağımsız, batarya yedekli sistem
-- **Veri Monetizasyonu:** Anonim veri satışı (meteoroloji, gübre, ilaç, sigorta şirketlerine), kooperatif raporları, karbon kredisi danışmanlığı
-- **SaaS/Platform Genişlemesi:** Temel/Profesyonel/Kurumsal paketler, beyaz etiket kooperatif çözümü, API ekosistemi
+    PARCEL {
+        uuid id
+        string name
+        polygon boundary
+        string variety
+        int tree_count
+        int planting_year
+    }
+    TREE {
+        uuid id
+        string external_code
+        point location
+        float canopy_radius
+    }
+    HEALTH_INDEX {
+        uuid id
+        date captured_at
+        string index_type
+        float value
+    }
+    SENSOR {
+        uuid id
+        string sensor_type
+        point location
+        int depth_cm
+    }
+    SENSOR_READING {
+        uuid id
+        timestamp recorded_at
+        float moisture
+        float temperature
+        float ec
+    }
+    DISEASE_RECORD {
+        uuid id
+        string disease_type
+        float confidence
+        date detected_at
+    }
+    FARM_PASSPORT {
+        uuid id
+        int productivity_score
+        date generated_at
+    }
+```
 
 ---
 
-## 🔄 Veri İşleme Pipeline'ı
+## 📦 Phased Feature Roadmap
+
+The platform is built in **three independent phases**; each phase is completed, validated, and then fused with the previous phase's data layer.
+
+```mermaid
+gantt
+    title Garden Digital Twin - Development Phases
+    dateFormat  X
+    axisFormat  %s
+    section Phase 1
+    Platform (Web + Mobile)         :active, f1, 0, 3
+    section Phase 2
+    Drone & Yield Intelligence      :f2, after f1, 3
+    section Phase 3
+    IoT & Smart Irrigation          :f3, after f2, 3
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Phase1
+    Phase1: Phase 1 - Satellite Platform
+    Phase1: NDVI / NDWI / EVI / LAI / LST / SAR
+    Phase2: Phase 2 - Drone Intelligence
+    Phase2: Fruit counting, disease mapping, MRV carbon
+    Phase3: Phase 3 - IoT Smart Orchard
+    Phase3: Soil sensors, smart valves, solar power
+    Phase1 --> Phase2: drone data layer added
+    Phase2 --> Phase3: IoT data layer added
+    Phase3 --> [*]: Unified Digital Twin
+```
+
+### Phase 1 — Platform (Web + Mobile)
+
+**Goal:** A satellite-data-driven MVP that delivers value from day one.
+
+<details>
+<summary><b>🗺️ My Farm — Digital Operations Center</b></summary>
+
+- Draw and save parcel boundaries (polygons) on the map, log tree count/variety/age
+- **8-layer satellite health analysis:** NDVI, NDWI, EVI, LAI, LST, SAR soil moisture, Phenology (seasonal tracking), 10-year time-series trend analysis
+- **Farm Passport:** historical productivity score (out of 100), exportable as a PDF proof document for banks or leasing
+- Labor and financial tracking (wages, expenses, profit/loss)
+- **Application Logbook:** barcode scanning for pesticide/dosage logging, EU export-compliant traceability report
+- Offline field notebook (photo/voice notes, auto-sync when back online)
+</details>
+
+<details>
+<summary><b>📈 Market & News Intelligence</b></summary>
+
+- **Lemon Exchange:** wholesale market price tracking combined with retail price scraping from major grocery chains
+- Global sector bulletin (harvest and price trends from major producing countries)
+- Local sector bulletin (trade fairs, government subsidies)
+- AI News Assistant: summarizes how a given news item affects the grower, in two sentences
+</details>
+
+<details>
+<summary><b>🩺 Technical Support & Expertise</b></summary>
+
+- **AI Lemon Doctor:** a Sola-style chatbot interface with photo-based disease diagnosis
+  - Detected diseases: Thrips, Citrus Psylla, Spider Mite, Root Rot, Citrus Canker
+- Ask an Expert: escalation to a live agronomist appointment when AI cannot resolve the issue
+- Disease image database (used as Phase 2 AI model training data)
+</details>
+
+<details>
+<summary><b>⚖️ Decision Support & Efficiency</b></summary>
+
+- Orchard-specific pruning/irrigation/harvest calendar with push notifications
+- Precision dosage calculator (tree count × variety × pesticide brand)
+- PHI (Pre-Harvest Interval) countdown with EU MRL compliance warnings
+- Comparative meteorology, frost/disaster risk alerts, 7-day detailed forecast
+</details>
+
+<details>
+<summary><b>👥 Community, Education & Government Integration</b></summary>
+
+- Agri-Academy: certified 1-minute micro-learning videos on pruning, disease control, fertilization
+- Service and equipment directory (tractor operators, fertilizer dealers, logistics providers)
+- Farmer Forum: moderated peer knowledge-sharing space
+- **Government integration:** national agricultural registry sync, subsidy application tracking, crop insurance tracking
+- Wholesale market integration and cold-storage facility tracking
+</details>
+
+### Phase 2 — Drone-Based Mapping & Yield Intelligence
+
+**Goal:** Turn the orchard into a machine that produces a harvest plan, not just a map.
+
+| Module | Technology | Output |
+|---|---|---|
+| **Fruit Counting** | YOLOv8 / Faster R-CNN, 50–80m altitude, orthomosaic stitching | Per-tree fruit count, total yield estimate (high accuracy) |
+| **Size & Ripeness Analysis** | RGB→HSV pixel/color analysis | Export-grade / domestic / industrial quality distribution |
+| **Revenue Projection** | Wholesale + retail price feed integration | Optimistic / realistic / pessimistic scenario revenue dashboard |
+| **Per-Tree Numbering** | Computer vision + RTK GPS | Unique tree ID, centimeter-accurate location |
+| **DSM/DTM Analysis** | Photogrammetry | Slope, water-flow direction, erosion risk, canopy volume |
+| **Disease Detection** | Custom CNN (ResNet-50 backbone) | Per-tree disease map with spread direction and hotspot analysis |
+| **Automated Spray Planning** | Disease map → dosage engine | Targeted spraying of only affected zones, cutting pesticide, time, and water use |
+| **Carbon (MRV)** | DSM volume model + input-based emissions calculation | Verra VCS / Gold Standard-compliant PDF report, carbon credit potential |
+
+### Phase 3 — IoT, Sensors & Smart Irrigation
+
+**Goal:** A fully autonomous, solar-powered smart orchard.
+
+```mermaid
+flowchart LR
+    A["Soil/Weather Sensors<br/>15-30-60cm depth"] -->|LoRaWAN| B["Gateway<br/>Raspberry Pi"]
+    B -->|MQTT| C["InfluxDB<br/>Time-Series"]
+    C --> D{"Moisture threshold check"}
+    D -->|Below threshold| E["Smart Valve<br/>Solenoid + ESP32"]
+    D -->|Sufficient| F["Standby"]
+    E --> G["Well Pump<br/>Control Unit"]
+    H["Solar Power System"] -->|Energy| B
+    H -->|Energy| E
+    H -->|Energy| G
+```
+
+- **Sensor Network:** moisture, temperature, and EC at 3 depths (15/30/60cm); weather station
+- **LoRaWAN Communication:** low-power, long-range data flow even in orchards without internet coverage
+- **Smart Valve:** zone-based automated irrigation with manual override
+- **Well/Pump Control:** dry-run, over-pressure, and voltage protection
+- **Solar Power System:** grid-independent, battery-backed operation
+- **Data Monetization:** anonymized data sales (to meteorology, fertilizer, pesticide, and insurance companies), cooperative reports, carbon credit advisory
+- **SaaS/Platform Expansion:** tiered subscription plans, white-label cooperative solution, API ecosystem
+
+---
+
+## 🤖 AI Disease Diagnosis Flow
+
+How a photo submitted by a grower becomes an actionable diagnosis.
+
+```mermaid
+sequenceDiagram
+    actor Farmer
+    participant App as Mobile / Web App
+    participant GW as API Gateway
+    participant Bot as AI Lemon Doctor
+    participant CNN as Disease CNN Model
+    participant DB as Disease Database
+
+    Farmer->>App: Upload leaf/fruit photo
+    App->>GW: POST /diagnose (image)
+    GW->>Bot: Forward request
+    Bot->>CNN: Run inference
+    CNN->>DB: Query similar historical cases
+    DB-->>CNN: Matching cases + confidence
+    CNN-->>Bot: Disease type + confidence score
+    alt High confidence
+        Bot-->>App: Diagnosis + treatment steps
+    else Low confidence
+        Bot-->>App: Suggest "Ask an Expert"
+        App->>Farmer: Offer live agronomist consultation
+    end
+    App-->>Farmer: Display diagnosis card with visuals
+```
+
+---
+
+## 🔄 Data Processing Pipeline
 
 ```mermaid
 flowchart TD
-    subgraph Kaynak["1. Veri Kaynagi"]
+    subgraph Kaynak["1. Data Source"]
         SH["Sentinel Hub API /<br/>Google Earth Engine"]
     end
 
-    subgraph Filtre["Bulut Filtreleme"]
+    subgraph Filtre["Cloud Filtering"]
         CF["Fmask / S2Cloudless"]
     end
 
-    subgraph Islem["2. Isleme Motoru - Python"]
+    subgraph Islem["2. Processing Engine - Python"]
         GDAL["GDAL + Rasterio + NumPy"]
-        NDVI_CALC["Indeks Hesabi<br/>NDVI = NIR-Red / NIR+Red"]
-        ZONE_CALC["Zonlama<br/>10 yillik istatistiksel ortalama"]
+        NDVI_CALC["Index Calculation<br/>NDVI = NIR-Red / NIR+Red"]
+        ZONE_CALC["Zoning<br/>10-year statistical averaging"]
     end
 
-    subgraph Dogrulama["3. Dogrulama - Data Fusion"]
+    subgraph Dogrulama["3. Validation - Data Fusion"]
         PG[("PostgreSQL + PostGIS")]
-        INFLUX[("InfluxDB - Sensor")]
-        FUSION{"Uydu vs sensor<br/>celiskisi?"}
+        INFLUX[("InfluxDB - Sensors")]
+        FUSION{"Satellite vs sensor<br/>conflict?"}
     end
 
-    subgraph AILayer["4. Akilli Analiz"]
-        ML["scikit-learn / TensorFlow<br/>Verimlilik Zonlama"]
+    subgraph AILayer["4. Intelligent Analysis"]
+        ML["scikit-learn / TensorFlow<br/>Yield Zoning"]
     end
 
-    subgraph Hibrit["5. Hibrit Dogrulama"]
-        S1R["Sentinel-1 SAR<br/>bulutlu gunlerde devreye girer"]
-        IOT_BACKUP["IoT sensor<br/>yerel yedek veri"]
-        INTERP["AI Interpolasyon"]
+    subgraph Hibrit["5. Hybrid Validation"]
+        S1R["Sentinel-1 SAR<br/>kicks in on cloudy days"]
+        IOT_BACKUP["IoT sensors<br/>local fallback data"]
+        INTERP["AI Interpolation"]
     end
 
-    subgraph Arayuz["6. Arayuz"]
-        MAP["Mapbox / Leaflet<br/>Katman Secici"]
+    subgraph Arayuz["6. Interface"]
+        MAP["Mapbox / Leaflet<br/>Layer Selector"]
     end
 
     SH --> CF --> GDAL --> NDVI_CALC --> ZONE_CALC --> PG
     INFLUX --> FUSION
     PG --> FUSION
-    FUSION -->|Sensor verisi oncelikli| PG
+    FUSION -->|Sensor data takes priority| PG
     PG --> ML --> MAP
-    CF -.->|Bulutlu gun| S1R --> INTERP
+    CF -.->|Cloudy day| S1R --> INTERP
     IOT_BACKUP --> INTERP
     INTERP --> PG
 ```
 
-**Kritik prensip:** Uydu verisi tek başına *tahmindir*. Bunu *kesin bilgiye* dönüştürmek için IoT sensör verisiyle çapraz doğrulama yapılır — çelişki durumunda sensör verisi esas alınır (çünkü toprağın 30cm altını doğrudan ölçer).
+**Core principle:** Satellite data alone is an *estimate*. To turn it into *ground truth*, it is cross-validated against IoT sensor data — and in case of conflict, sensor data wins, since it measures 30cm below the surface directly.
 
 ---
 
-## 🛰️ Dijital Sağlık Skoru — 8 Katmanlı Uydu Analizi
+## 🛰️ Satellite Health Score — 8-Layer Analysis
 
-| # | İndeks | Ölçtüğü | Formül / Yöntem | Kaynak |
+| # | Index | Measures | Formula / Method | Source |
 |---|---|---|---|---|
-| 1.1 | **NDVI** | Bitki sağlığı/yoğunluğu | `(NIR - Red) / (NIR + Red)` | Sentinel-2 B8/B4 |
-| 1.2 | **NDWI** | Su içeriği | `(NIR - SWIR) / (NIR + SWIR)` | Sentinel-2 B8/B11 |
-| 1.3 | **EVI** | Gelişmiş bitki sağlığı (sık dikim) | `2.5 × (NIR-Red)/(NIR+6×Red-7.5×Blue+1)` | Sentinel-2 |
-| 1.4 | **LAI** | Yaprak yoğunluğu / fotosentez kapasitesi | PROSAIL modeli / NDVI-LAI regresyonu | Sentinel-2 B3/B4/B5 |
-| 1.5 | **LST** | Toprak yüzey sıcaklığı | Split-Window algoritması | Landsat-8 TIRS / MODIS |
-| 1.6 | **SAR Toprak Nemi** | Bulut altı nem seviyesi | Water Cloud Model | Sentinel-1 VV/VH |
-| 1.7 | **Phenology** | Çiçeklenme/hasat dönemi tespiti | Savitzky-Golay filtreleme (SOS/EOS) | NDVI zaman serisi |
-| 1.8 | **Zaman Serisi Trend** | Aylık/yıllık gelişim karşılaştırması | 10 yıllık istatistiksel zonlama | Tüm indeksler |
+| 1.1 | **NDVI** | Vegetation health/density | `(NIR - Red) / (NIR + Red)` | Sentinel-2 B8/B4 |
+| 1.2 | **NDWI** | Water content | `(NIR - SWIR) / (NIR + SWIR)` | Sentinel-2 B8/B11 |
+| 1.3 | **EVI** | Enhanced vegetation health (dense planting) | `2.5 × (NIR-Red)/(NIR+6×Red-7.5×Blue+1)` | Sentinel-2 |
+| 1.4 | **LAI** | Leaf density / photosynthetic capacity | PROSAIL model / NDVI-LAI regression | Sentinel-2 B3/B4/B5 |
+| 1.5 | **LST** | Land surface temperature | Split-Window algorithm | Landsat-8 TIRS / MODIS |
+| 1.6 | **SAR Soil Moisture** | Moisture level beneath cloud cover | Water Cloud Model | Sentinel-1 VV/VH |
+| 1.7 | **Phenology** | Flowering/harvest period detection | Savitzky-Golay filtering (SOS/EOS) | NDVI time series |
+| 1.8 | **Time-Series Trend** | Monthly/yearly growth comparison | 10-year statistical zoning | All indices |
 
 ---
 
-## 🗺️ Harita Katmanları Evrimi (3 Faz Boyunca)
+## 🗺️ Map Layer Evolution Across 3 Phases
 
 ```mermaid
 flowchart TB
-    subgraph F1["Faz 1 Sonrasi - Temel Uydu Haritasi"]
-        L1["NDVI, NDWI, EVI, LAI, LST, SAR<br/>Phenology, Parsel Poligonu"]
+    subgraph F1["After Phase 1 - Base Satellite Map"]
+        L1["NDVI, NDWI, EVI, LAI, LST, SAR<br/>Phenology, Parcel Boundary"]
     end
-    subgraph F2["Faz 2 Sonrasi - Drone Detay Haritasi"]
-        L2["Faz 1 verileri<br/>Agac Basi Numara ve Saglik<br/>Hastalik Haritasi, DSM/Egim<br/>Karbon, Verim Tahmini, Meyve Sayimi"]
+    subgraph F2["After Phase 2 - Drone Detail Map"]
+        L2["Phase 1 data plus<br/>Per-Tree ID and Health<br/>Disease Map, DSM/Slope<br/>Carbon, Yield Estimate, Fruit Count"]
     end
-    subgraph F3["Faz 3 Sonrasi - Birlesik Dijital Ikiz"]
-        L3["Faz 1 ve 2 verileri<br/>Yer Alti: Nem, Sicaklik, pH, EC<br/>Aktif Sistem: Vana Durumu, GES<br/>Tek Birlesik Saglik Skoru"]
+    subgraph F3["After Phase 3 - Unified Digital Twin"]
+        L3["Phase 1 and 2 data plus<br/>Below Ground: Moisture, Temp, pH, EC<br/>Active Systems: Valve Status, Solar<br/>One Unified Health Score"]
     end
-    F1 -->|Drone verisi eklenir| F2
-    F2 -->|IoT verisi eklenir| F3
+    F1 -->|Drone data added| F2
+    F2 -->|IoT data added| F3
 
     style F1 fill:#e3f2fd
     style F2 fill:#e8f5e9
@@ -385,85 +502,85 @@ flowchart TB
 
 ---
 
-## 🧰 Teknoloji Yığını
+## 🧰 Tech Stack
 
 <table>
-<tr><th>Katman</th><th>Faz</th><th>Teknolojiler</th></tr>
+<tr><th>Layer</th><th>Phase</th><th>Technologies</th></tr>
 <tr><td><b>Backend</b></td><td>1</td><td>FastAPI (Python) / Node.js</td></tr>
-<tr><td><b>Veritabanı</b></td><td>1</td><td>PostgreSQL + PostGIS (coğrafi veri)</td></tr>
+<tr><td><b>Database</b></td><td>1</td><td>PostgreSQL + PostGIS (geospatial data)</td></tr>
 <tr><td><b>Cache</b></td><td>1</td><td>Redis</td></tr>
 <tr><td><b>Auth & Storage</b></td><td>1</td><td>Supabase</td></tr>
 <tr><td><b>Frontend Web</b></td><td>1</td><td>React + Mapbox</td></tr>
-<tr><td><b>Frontend Mobil</b></td><td>1</td><td>React Native / Flutter</td></tr>
-<tr><td><b>AI (Chatbot/Özet)</b></td><td>1</td><td>OpenAI API</td></tr>
+<tr><td><b>Frontend Mobile</b></td><td>1</td><td>React Native / Flutter</td></tr>
+<tr><td><b>AI (Chatbot/Summarization)</b></td><td>1</td><td>OpenAI API</td></tr>
 <tr><td><b>Scraping</b></td><td>1</td><td>Scrapy</td></tr>
-<tr><td><b>Uydu Verisi</b></td><td>1</td><td>Sentinel-2 API, Sentinel-1 SAR API, MODIS/Landsat</td></tr>
+<tr><td><b>Satellite Data</b></td><td>1</td><td>Sentinel-2 API, Sentinel-1 SAR API, MODIS/Landsat</td></tr>
 <tr><td><b>Drone SDK</b></td><td>2</td><td>DJI SDK / Pix4D</td></tr>
-<tr><td><b>Görüntü İşleme</b></td><td>2</td><td>OpenCV, TensorFlow</td></tr>
-<tr><td><b>Haritalama</b></td><td>2</td><td>OpenDroneMap / QGIS</td></tr>
-<tr><td><b>Hastalık Tespiti</b></td><td>2</td><td>Custom CNN (ResNet-50 backbone, transfer learning)</td></tr>
-<tr><td><b>Nesne Algılama</b></td><td>2</td><td>YOLOv8 / Detectron2</td></tr>
-<tr><td><b>Sensör İletişimi</b></td><td>3</td><td>LoRaWAN (SX1276/SX1262)</td></tr>
+<tr><td><b>Image Processing</b></td><td>2</td><td>OpenCV, TensorFlow</td></tr>
+<tr><td><b>Mapping</b></td><td>2</td><td>OpenDroneMap / QGIS</td></tr>
+<tr><td><b>Disease Detection</b></td><td>2</td><td>Custom CNN (ResNet-50 backbone, transfer learning)</td></tr>
+<tr><td><b>Object Detection</b></td><td>2</td><td>YOLOv8 / Detectron2</td></tr>
+<tr><td><b>Sensor Communication</b></td><td>3</td><td>LoRaWAN (SX1276/SX1262)</td></tr>
 <tr><td><b>Gateway</b></td><td>3</td><td>Raspberry Pi + LoRaWAN HAT / TTN Gateway</td></tr>
 <tr><td><b>Real-time Data</b></td><td>3</td><td>MQTT + InfluxDB (time-series)</td></tr>
 <tr><td><b>Edge Computing</b></td><td>3</td><td>ESP32</td></tr>
-<tr><td><b>Enerji</b></td><td>3</td><td>Solar panel + MPPT + LiFePO4 batarya</td></tr>
-<tr><td><b>Hava Durumu API</b></td><td>Tümü</td><td>OpenWeatherMap / Meteoblue</td></tr>
-<tr><td><b>Dış Entegrasyonlar</b></td><td>Tümü</td><td>HKS API, E-Devlet/Tarım Bakanlığı, Ziraat Bankası, TARSİM, Stripe/PayTR</td></tr>
+<tr><td><b>Power</b></td><td>3</td><td>Solar panel + MPPT + LiFePO4 battery</td></tr>
+<tr><td><b>Weather API</b></td><td>All</td><td>OpenWeatherMap / Meteoblue</td></tr>
+<tr><td><b>External Integrations</b></td><td>All</td><td>Wholesale market APIs, national agri-registry, banking/credit APIs, crop insurance, payment gateways</td></tr>
 </table>
 
 ---
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
-> Aşağıdaki yapı, önerilen monorepo organizasyonunu gösterir — repodaki gerçek klasörlere göre güncelleyin.
+> The structure below shows a recommended monorepo layout — adjust it to match the actual folders in your repository.
 
 ```
-bahce-ikizi/
+garden-digital-twin/
 ├── apps/
-│   ├── web/                 # React + Mapbox web uygulaması
-│   └── mobile/               # React Native / Flutter mobil app
+│   ├── web/                   # React + Mapbox web application
+│   └── mobile/                # React Native / Flutter mobile app
 ├── services/
-│   ├── api-gateway/           # FastAPI ana servis
-│   ├── satellite-pipeline/    # Sentinel-1/2 veri çekme & indeks hesaplama
-│   ├── drone-processing/      # Orthomosaic, CNN, YOLO servisleri (Faz 2)
-│   ├── iot-ingestion/         # MQTT/LoRaWAN veri toplama (Faz 3)
-│   └── chatbot/               # AI Limon Doktoru servisi
+│   ├── api-gateway/           # FastAPI core service
+│   ├── satellite-pipeline/    # Sentinel-1/2 ingestion & index calculation
+│   ├── drone-processing/      # Orthomosaic, CNN, YOLO services (Phase 2)
+│   ├── iot-ingestion/         # MQTT/LoRaWAN data collection (Phase 3)
+│   └── chatbot/               # AI Lemon Doctor service
 ├── infra/
-│   ├── postgis/                # Veritabanı şema & migration
-│   ├── influxdb/               # Time-series konfigürasyonu
+│   ├── postgis/                # Database schema & migrations
+│   ├── influxdb/                # Time-series configuration
 │   └── docker-compose.yml
-├── firmware/                   # ESP32 / sensör kodları (Faz 3)
+├── firmware/                   # ESP32 / sensor firmware (Phase 3)
 ├── docs/
-│   └── bahce-ikizi-dokumantasyon.pdf
+│   └── project-documentation.pdf
 └── README.md
 ```
 
 ---
 
-## ⚙️ Kurulum
+## ⚙️ Getting Started
 
-> Aşağıdaki adımlar örnek bir yerel geliştirme ortamı kurulumunu gösterir.
+> The steps below show an example local development setup.
 
 ```bash
-# Depoyu klonlayın
-git clone https://github.com/<kullanici-adi>/bahce-ikizi.git
-cd bahce-ikizi
+# Clone the repository
+git clone https://github.com/<your-username>/garden-digital-twin.git
+cd garden-digital-twin
 
-# Backend bağımlılıkları
+# Backend dependencies
 cd services/api-gateway
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
-# Ortam değişkenlerini ayarlayın
+# Configure environment variables
 cp .env.example .env
-# SENTINEL_HUB_CLIENT_ID, SENTINEL_HUB_CLIENT_SECRET,
-# SUPABASE_URL, SUPABASE_KEY, OPENAI_API_KEY vb. doldurun
+# Fill in SENTINEL_HUB_CLIENT_ID, SENTINEL_HUB_CLIENT_SECRET,
+# SUPABASE_URL, SUPABASE_KEY, OPENAI_API_KEY, etc.
 
-# Veritabanını başlatın (PostGIS uzantılı PostgreSQL)
+# Start the database (PostgreSQL with PostGIS)
 docker-compose up -d postgis redis
 
-# Backend'i çalıştırın
+# Run the backend
 uvicorn main:app --reload
 
 # Frontend
@@ -474,50 +591,50 @@ npm run dev
 
 ---
 
-## 🛣️ Proje Yol Haritası (3 Fazlı Geliştirme)
+## 🛣️ Project Roadmap (3-Phase Development)
 
-- [x] **Faz 1 — Platform:** Tarlam modülü, 8 katmanlı uydu analizi, Tarla Pasaportu, AI Limon Doktoru, pazar zekası, E-Ziraat entegrasyonu
-- [ ] **Faz 2 — Drone & Verim Zekası:** Meyve sayımı (YOLO), hastalık haritalama (CNN), otomatik ilaçlama planı, MRV karbon raporu
-- [ ] **Faz 3 — IoT & Akıllı Sulama:** LoRaWAN sensör ağı, akıllı vana kontrolü, GES entegrasyonu, veri monetizasyonu, SaaS/kooperatif modeli
-
----
-
-## 🔭 Vizyon
-
-Bahçe İkizi, tek bir bahçeden başlayıp ölçeklenebilir bir global akıllı tarım altyapısı olmayı hedefler:
-
-- Dünya genelindeki narenciye üreticilerine ulaşan, yerelden bağımsız çalışabilen bir **SaaS platformu** olmak
-- Uydu, drone ve IoT verisini birleştiren **açık, veriye dayalı hassas tarım standardını** belirlemek
-- Karbon kredisi ve sürdürülebilirlik raporlamasında (MRV) üreticiler için **uluslararası ölçekte erişilebilir** bir çözüm sunmak
-- Kooperatifler, ihracatçılar ve finans kuruluşları için **güvenilir tarımsal veri altyapısı** haline gelmek
-- Su, ilaç ve enerji kullanımını optimize ederek **sürdürülebilir narenciye üretimine** küresel ölçekte katkı sağlamak
+- [x] **Phase 1 — Platform:** My Farm module, 8-layer satellite analysis, Farm Passport, AI Lemon Doctor, market intelligence, government integration
+- [ ] **Phase 2 — Drone & Yield Intelligence:** fruit counting (YOLO), disease mapping (CNN), automated spray planning, MRV carbon report
+- [ ] **Phase 3 — IoT & Smart Irrigation:** LoRaWAN sensor network, smart valve control, solar power integration, data monetization, SaaS/cooperative model
 
 ---
 
-## 🤝 Katkıda Bulunma
+## 🔭 Vision
 
-Bu proje şu anda aktif geliştirme aşamasındadır. Katkı sağlamak isterseniz:
+Garden Digital Twin starts with a single orchard and is built to scale into global smart-agriculture infrastructure:
 
-1. Depoyu fork'layın
-2. Özellik dalınızı oluşturun (`git checkout -b ozellik/yeni-ozellik`)
-3. Değişikliklerinizi commit'leyin (`git commit -m 'Yeni özellik eklendi'`)
-4. Dalınızı push'layın (`git push origin ozellik/yeni-ozellik`)
-5. Pull Request açın
-
----
-
-## 📄 Lisans
-
-Bu proje için lisans bilgisi eklenecektir. *(Örn: MIT, Apache 2.0 veya Proprietary — tercihinize göre güncelleyin.)*
+- Become a **SaaS platform** that reaches citrus growers worldwide, independent of any single region
+- Define an **open, data-driven precision agriculture standard** that fuses satellite, drone, and IoT data
+- Provide an **internationally accessible** carbon credit and sustainability reporting (MRV) solution for growers
+- Become a **trusted agricultural data infrastructure** for cooperatives, exporters, and financial institutions
+- Contribute to **globally sustainable citrus production** by optimizing water, pesticide, and energy use
 
 ---
 
-## 📬 İletişim
+## 🤝 Contributing
 
-Sorularınız veya iş birliği teklifleriniz için proje sahibiyle iletişime geçebilirsiniz.
+This project is under active development. To contribute:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+License information will be added here. *(e.g. MIT, Apache 2.0, or Proprietary — update based on your preference.)*
+
+---
+
+## 📬 Contact
+
+For questions or collaboration inquiries, feel free to reach out to the project maintainer.
 
 ---
 
 <p align="center">
-  <sub>Proje: Bahçe İkizi (Garden Digital Twin) · Akıllı Narenciye Tarımı Platformu</sub>
+  <sub>Project: Garden Digital Twin · Intelligent Citrus Farming Platform</sub>
 </p>
